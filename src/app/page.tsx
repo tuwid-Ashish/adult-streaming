@@ -30,7 +30,7 @@ export default function Home() {
                   <p className="text-muted text-sm px-4">Classic Tube UI clone with dense grids, signature orange branding, and verified tags.</p>
                 </div>
                 <div className="flex gap-2">
-                  <span className="px-3 py-1 bg-[#282828] border border-white/5 rounded-sm text-[10px] font-bold uppercase tracking-wider text-accent">P-Style Clone</span>
+                  <span className="px-3 py-1 bg-[#282828] border border-white/5 rounded-sm text-[10px] font-bold uppercase tracking-wider text-accent">Pornhun -Style Clone</span>
                 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@ export default function Home() {
                   <p className="text-muted text-sm px-4">Modern Red/Blue UI clone featuring a persistent category sidebar and high-density content wall.</p>
                 </div>
                 <div className="flex gap-2">
-                  <span className="px-3 py-1 bg-[#2a2f3a] border border-white/5 rounded-sm text-[10px] font-bold uppercase tracking-wider text-accent2">X-Style Clone</span>
+                  <span className="px-3 py-1 bg-[#2a2f3a] border border-white/5 rounded-sm text-[10px] font-bold uppercase tracking-wider text-accent2">Xhemster -Style Clone</span>
                 </div>
               </div>
             </div>

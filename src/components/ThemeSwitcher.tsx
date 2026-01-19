@@ -10,10 +10,8 @@ interface ThemeSwitcherProps {
 }
 
 const themeNames: Record<ThemeType, string> = {
-    'V1-A': 'Midnight Orange',
-    'V1-B': 'Graphite Lime',
-    'V2-A': 'Clean Pink',
-    'V2-B': 'Night Neon',
+    'V1-P': 'Professional Dark',
+    'V2-X': 'Modern Gray',
     'V3': 'Cinema Gold',
 };
 
@@ -21,8 +19,8 @@ export function ThemeSwitcher({ version }: ThemeSwitcherProps) {
     const { theme, setTheme } = useTheme();
 
     const availableThemes: ThemeType[] =
-        version === 'v1' ? ['V1-A', 'V1-B'] :
-            version === 'v2' ? ['V2-A', 'V2-B'] :
+        version === 'v1' ? ['V1-P'] :
+            version === 'v2' ? ['V2-X'] :
                 ['V3'];
 
     // If the current theme is not in the available list for this version, reset it

@@ -11,7 +11,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-    const [theme, setTheme] = useState<ThemeType>('V1-A');
+    const [theme, setTheme] = useState<ThemeType>('V1-P');
 
     useEffect(() => {
         document.documentElement.setAttribute('data-theme', theme);

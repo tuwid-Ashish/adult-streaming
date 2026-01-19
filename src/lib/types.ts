@@ -10,4 +10,4 @@ export interface Video {
   thumbnailUrl: string;
 }
 
-export type ThemeType = 'V1-A' | 'V1-B' | 'V2-A' | 'V2-B' | 'V3';
+export type ThemeType = 'V1-P' | 'V2-X' | 'V3';

@@ -1,68 +1,65 @@
 'use client';
 
 import React from 'react';
+import { Play } from 'lucide-react';
 import { videos } from '@/lib/dummyData';
 import { VideoCard } from '@/components/VideoCard';
 import { useRouter } from 'next/navigation';
 
-export default function CirclePage() {
+export default function XStylePage() {
     const router = useRouter();
+    const subFilters = ["Recent", "Most Viewed", "Top Rated", "Trending", "Longest"];
 
     return (
-        <div className="py-6 px-4 space-y-8">
-            {/* Stories Row */}
-            <div className="flex gap-4 overflow-x-auto pb-4 no-scrollbar">
-                {videos.slice(0, 8).map((v) => (
-                    <div key={v.id} className="flex flex-col items-center gap-1.5 flex-shrink-0">
-                        <div className="w-16 h-16 rounded-full p-[3px] bg-gradient-to-tr from-accent to-accent2 shadow-lg cursor-pointer transition-transform active:scale-90">
-                            <div className="w-full h-full rounded-full border-2 border-bg overflow-hidden bg-surface">
-                                <img src={v.thumbnailUrl} className="w-full h-full object-cover" alt="" />
-                            </div>
-                        </div>
-                        <span className="text-[10px] font-medium w-16 truncate text-center">
-                            {v.creatorName}
-                        </span>
-                    </div>
-                ))}
+        <div className="space-y-8">
+            {/* Sub-nav row */}
+            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+                <div className="flex items-center gap-6 text-sm font-bold uppercase tracking-wide">
+                    {subFilters.map((f) => (
+                        <button key={f} className={`transition-colors ${f === 'Recent' ? 'text-accent2 border-b-2 border-accent2 h-[40px] px-1' : 'text-muted hover:text-white'}`}>
+                            {f}
+                        </button>
+                    ))}
+                </div>
+                <div className="text-[11px] font-bold text-muted hidden sm:block">
+                    Displaying 24 of 1,452 videos
+                </div>
             </div>
 
-            {/* Feed */}
-            <div className="space-y-12">
-                {videos.map((video) => (
-                    <div key={video.id} className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold">
-                                    {video.creatorName[0]}
-                                </div>
-                                <div>
-                                    <h4 className="font-bold text-sm leading-none">{video.creatorName}</h4>
-                                    <p className="text-muted text-[10px] mt-1">Suggested for you</p>
-                                </div>
-                            </div>
-                            <button className="text-accent2 text-sm font-bold bg-accent2/10 px-4 py-1.5 rounded-full hover:bg-accent2/20 transition-colors">
-                                Follow
-                            </button>
-                        </div>
-
-                        <VideoCard
-                            video={video}
-                            variant="grid" // Using grid variant but in a column layout
-                            onClick={() => router.push(`/v2/video/${video.id}`)}
-                        />
-
-                        <div className="flex items-center gap-6 px-2">
-                            <div className="flex items-center gap-2">
-                                <span className="font-bold text-sm">{video.views}</span>
-                                <span className="text-muted text-sm">views</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <span className="font-bold text-sm">{video.uploadedAgo}</span>
-                            </div>
-                        </div>
+            {/* Dense Wall of Content */}
+            <section className="space-y-12">
+                <div>
+                    <h2 className="text-xl font-black uppercase tracking-tight mb-6 flex items-center gap-2">
+                        <Play className="w-5 h-5 text-accent" /> Featured Videos
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+                        {videos.map((video) => (
+                            <VideoCard
+                                key={video.id}
+                                video={video}
+                                variant="x-style"
+                                onClick={() => router.push(`/v2/video/${video.id}`)}
+                            />
+                        ))}
                     </div>
-                ))}
-            </div>
+                </div>
+
+                <div>
+                    <h2 className="text-xl font-black uppercase tracking-tight mb-6 flex items-center gap-2">
+                        <Play className="w-5 h-5 text-accent" /> Recommended for You
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-4">
+                        {[...videos].reverse().map((video) => (
+                            <VideoCard
+                                key={`${video.id}-rev`}
+                                video={video}
+                                variant="x-style"
+                                onClick={() => router.push(`/v2/video/${video.id}`)}
+                            />
+                        ))}
+                    </div>
+                </div>
+            </section>
         </div>
     );
 }

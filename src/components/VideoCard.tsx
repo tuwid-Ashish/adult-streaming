@@ -7,33 +7,81 @@ import Image from 'next/image';
 
 interface VideoCardProps {
     video: Video;
-    variant?: 'grid' | 'circle' | 'cinema';
+    variant?: 'p-style' | 'x-style' | 'cinema';
     onClick?: () => void;
 }
 
-export function VideoCard({ video, variant = 'grid', onClick }: VideoCardProps) {
-    if (variant === 'circle') {
+export function VideoCard({ video, variant = 'p-style', onClick }: VideoCardProps) {
+    // P-Style: Pornhub Inspired
+    if (variant === 'p-style') {
         return (
             <div
                 onClick={onClick}
-                className="flex flex-col gap-3 group cursor-pointer"
+                className="flex flex-col gap-2 group cursor-pointer w-full"
             >
-                <div className="relative aspect-[9/16] rounded-2xl overflow-hidden bg-surface border border-border">
+                <div className="relative aspect-video rounded-md overflow-hidden bg-surface border border-transparent group-hover:border-accent transition-all duration-200">
                     <img
                         src={video.thumbnailUrl}
                         alt={video.title}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="w-full h-full object-cover grayscale-[0.1] group-hover:grayscale-0 transition-all duration-300"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-                    <div className="absolute bottom-4 left-4 right-4">
-                        <h3 className="text-white font-bold text-lg line-clamp-2">{video.title}</h3>
-                        <p className="text-white/70 text-sm mt-1">{video.creatorName}</p>
+                    <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <span className="absolute bottom-1.5 right-1.5 bg-black/90 text-white text-[10px] font-black px-1 py-0.5 rounded-sm">
+                        {video.duration}
+                    </span>
+                </div>
+                <div className="flex flex-col gap-1 px-0.5">
+                    <h3 className="text-text font-bold text-[13px] line-clamp-2 leading-[1.3] group-hover:text-accent group-hover:underline transition-colors decoration-accent">
+                        {video.title}
+                    </h3>
+                    <div className="flex items-center justify-between text-[11px] text-muted font-medium">
+                        <span className="hover:text-text">{video.creatorName}</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-accent2">{video.views}</span>
+                            <span className="text-green-500">95%</span>
+                        </div>
                     </div>
                 </div>
             </div>
         );
     }
 
+    // X-Style: xHamster Inspired
+    if (variant === 'x-style') {
+        return (
+            <div
+                onClick={onClick}
+                className="flex flex-col gap-2 group cursor-pointer w-full border border-transparent hover:bg-surface/50 p-1 transition-colors"
+            >
+                <div className="relative aspect-video overflow-hidden bg-surface">
+                    <img
+                        src={video.thumbnailUrl}
+                        alt={video.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    <span className="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] font-bold px-1 py-0.5">
+                        {video.duration}
+                    </span>
+                    <div className="absolute top-1 left-1 flex gap-1">
+                        <span className="bg-accent2/90 text-white text-[9px] font-bold px-1 py-0.5 uppercase">HD</span>
+                        <span className="bg-yellow-600/90 text-white text-[9px] font-bold px-1 py-0.5 uppercase">4K</span>
+                    </div>
+                </div>
+                <div className="flex flex-col gap-0.5">
+                    <h3 className="text-text font-semibold text-[13px] line-clamp-1 group-hover:text-accent2 transition-colors">
+                        {video.title}
+                    </h3>
+                    <div className="flex items-center gap-2 text-[10px] text-muted">
+                        <span className="font-bold text-accent">{video.views}</span>
+                        <span>•</span>
+                        <span>{video.uploadedAgo}</span>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    // Cinema: Netflix Inspired
     if (variant === 'cinema') {
         return (
             <div
@@ -57,35 +105,5 @@ export function VideoCard({ video, variant = 'grid', onClick }: VideoCardProps) 
         );
     }
 
-    return (
-        <div
-            onClick={onClick}
-            className="flex flex-col gap-3 group cursor-pointer"
-        >
-            <div className="relative aspect-video rounded-xl overflow-hidden bg-surface border border-border">
-                <img
-                    src={video.thumbnailUrl}
-                    alt={video.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <span className="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
-                    {video.duration}
-                </span>
-            </div>
-            <div className="flex gap-3">
-                <div className="w-10 h-10 rounded-full bg-accent/20 flex-shrink-0 flex items-center justify-center font-bold text-accent">
-                    {video.creatorName[0]}
-                </div>
-                <div className="flex flex-col overflow-hidden">
-                    <h3 className="text-text font-semibold text-sm line-clamp-2 leading-tight group-hover:text-accent transition-colors">
-                        {video.title}
-                    </h3>
-                    <p className="text-muted text-xs mt-1">{video.creatorName}</p>
-                    <p className="text-muted text-[10px] mt-0.5">
-                        {video.views} views • {video.uploadedAgo}
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
+    return null;
 }
